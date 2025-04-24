@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URmdE9000</title>
+    <link rel="stylesheet" href="style42.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="logoText">Ultimate ReadMe.md Editor 9000</h1>
+            <div class="controls">
+                <input type="file" id="importMd" accept=".md,.markdown,text/markdown" style="display:none;">
+                <button id="importBtn">Import .md</button>
+                <button id="exportBtn">Export as README.md</button>
+                <button id="toggleViewBtn">Show Raw Markdown</button>
+            </div>
+        </header>
+        <div class="feature-toolbar">
+            <button id="insertTemplateBtn">Insert README Template</button>
+            <button id="insertSectionBtn">Insert Section</button>
+            <button id="uploadImageBtn">Upload Image</button>
+            <button id="generateTocBtn">Generate TOC</button>
+            <button id="insertLicenseBtn">Insert License</button>
+            <div class="export-dropdown">
+                <button id="exportDropdownBtn">Export ▼</button>
+                <div class="export-dropdown-content">
+                    <button id="exportMdBtn">Markdown</button>
+                    <button id="exportPdfBtn">PDF</button>
+                    <button id="exportHtmlBtn">HTML</button>
+                </div>
+            </div>
+            <button id="previewModeBtn">Desktop/Mobile View</button>
+            <button id="shareBtn">Share</button>
+        </div>
+        <!-- Hidden image file input for upload -->
+        <input type="file" id="hiddenImageInput" accept="image/*" style="display:none;" />
+        <main>
+            <section class="preview-section">
+                <h2>Live Preview</h2>
+                <button class="fullscreen-toggle" id="previewFullscreenBtn" title="Toggle Fullscreen Preview">⛶</button>
+                <div id="wysiwygToolbar" style="margin-bottom:10px;"></div>
+                <div id="preview" contenteditable="true" spellcheck="false"></div>
+                <pre id="rawMarkdown" style="display:none;"></pre>
+            </section>
+            <section class="editor-section">
+                <h2>Markdown Editor</h2>
+                <button class="fullscreen-toggle" id="editorFullscreenBtn" title="Toggle Fullscreen Editor">⛶</button>
+                <textarea id="markdownInput" placeholder="Type your markdown here..."></textarea>
+            </section>
+        </main>
+        <section class="cheat-sheet-list">
+            <h2>Markdown Cheat Sheet</h2>
+            <div class="cheat-columns">
+                <div>
+                    <h3>Basic Syntax</h3>
+                    <ul>
+                        <li><b>Heading</b>: <code># H1</code>, <code>## H2</code>, <code>### H3</code></li>
+                        <li><b>Bold</b>: <code>**bold text**</code></li>
+                        <li><b>Italic</b>: <code>*italicized text*</code></li>
+                        <li><b>Blockquote</b>: <code>&gt; blockquote</code></li>
+                        <li><b>Ordered List</b>: <code>1. First item</code></li>
+                        <li><b>Unordered List</b>: <code>- First item</code></li>
+                        <li><b>Code</b>: <code>`code`</code></li>
+                        <li><b>Horizontal Rule</b>: <code>---</code></li>
+                        <li><b>Link</b>: <code>[title](https://www.example.com)</code></li>
+                        <li><b>Image</b>: <code>![alt text](image.jpg)</code></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Extended Syntax</h3>
+                    <ul>
+                        <li><b>Table</b>: <code>| Syntax | Description |<br>| ----------- | ----------- |<br>| Header | Title |<br>| Paragraph | Text |</code></li>
+                        <li><b>Fenced Code Block</b>: <code>```<br>code block<br>```</code></li>
+                        <li><b>Footnote</b>: <code>Here's a sentence with a footnote. [^1]<br>[^1]: This is the footnote.</code></li>
+                        <li><b>Heading ID</b>: <code>### My Great Heading {#custom-id}</code></li>
+                        <li><b>Definition List</b>: <code>term<br>: definition</code></li>
+                        <li><b>Strikethrough</b>: <code>~~The world is flat.~~</code></li>
+                        <li><b>Task List</b>: <code>- [x] Write the press release</code></li>
+                        <li><b>Emoji</b>: <code>That is so funny! :joy:</code></li>
+                        <li><b>Highlight</b>: <code>I need to highlight these ==very important words==.</code></li>
+                        <li><b>Subscript</b>: <code>H~2~O</code></li>
+                        <li><b>Superscript</b>: <code>X^2^</code></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- Section Snippet Modal -->
+        <div id="sectionModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" id="closeSectionModal">&times;</span>
+                <h3>Insert Section</h3>
+                <ul class="section-list">
+                    <li><button data-section="about">About The Project</button></li>
+                    <li><button data-section="getting-started">Getting Started</button></li>
+                    <li><button data-section="usage">Usage</button></li>
+                    <li><button data-section="roadmap">Roadmap</button></li>
+                    <li><button data-section="contributing">Contributing</button></li>
+                    <li><button data-section="license">License</button></li>
+                    <li><button data-section="contact">Contact</button></li>
+                </ul>
+            </div>
+        </div>
+        <!-- License Modal -->
+        <div id="licenseModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" id="closeLicenseModal">&times;</span>
+                <h3>Insert License</h3>
+                <ul class="license-list">
+                    <li><button data-license="MIT">MIT</button></li>
+                    <li><button data-license="Apache-2.0">Apache 2.0</button></li>
+                    <li><button data-license="GPL-3.0">GPL v3</button></li>
+                    <li><button data-license="BSD-3-Clause">BSD 3-Clause</button></li>
+                    <li><button data-license="Unlicense">Unlicense</button></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Share Modal -->
+        <div id="shareModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" id="closeShareModal">&times;</span>
+                <h3>Share Your README</h3>
+                <div style="margin-bottom:14px;">
+                    <label for="shareTitle">Title:</label>
+                    <input id="shareTitle" type="text" style="width:100%;margin-top:4px;" placeholder="Optional title for your draft" />
+                </div>
+                <button id="copyShareLinkBtn">Copy Shareable Link</button>
+                <div id="shareStatus" style="margin-top:12px;font-size:0.95em;color:#8bc34a;display:none;">Link copied!</div>
+            </div>
+        </div>
+        <footer class="site-footer">
+            <a href="https://x.com/CiphersSon" target="_blank" rel="noopener" class="footer-link">Created by Frank Forrester</a>
+            <span class="footer-sep">|</span>
+            <a href="https://github.com/ciphersson" target="_blank" rel="noopener" class="footer-link">GPLv3</a>
+        </footer>
+    </div>
+</body>
+<script src="app42.js"></script>
+</html>
