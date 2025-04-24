@@ -4,6 +4,8 @@
 
 A powerful, modern, and feature-rich Markdown editor designed for creating, previewing, and exporting high-quality README files with ease and flexibility.
 
+![Image](https://github.com/user-attachments/assets/b8ad39ba-c0d6-4bcf-b01f-97e6d0299b10)
+
 ## Table of Contents
 - [Features](#features)
 - [Screenshots](#screenshots)
